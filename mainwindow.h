@@ -35,6 +35,7 @@ public:
 
 public slots:
     void open(const QUrl &docLocation);
+    void terminate();
 
 private slots:
     void bookmarkSelected(const QModelIndex &index);
@@ -58,7 +59,6 @@ private slots:
     void on_actionFindPrevious_triggered();
 
     void on_textEdit_2_textChanged();
-
 private:
     Ui::MainWindow *ui;
     ZoomSelector *m_zoomSelector;
@@ -66,7 +66,6 @@ private:
     QPdfSearchModel *m_searchModel;
     QLineEdit *m_searchField;
     QFileDialog *m_fileDialog = nullptr;
-
     QPdfDocument *m_document;
 };
 

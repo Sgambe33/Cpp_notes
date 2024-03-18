@@ -6,6 +6,7 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 #include <QUrl>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
@@ -20,10 +21,14 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument("file", "The file to open.");
     parser.process(a);
 
+
+
     MainWindow w;
     w.show();
     if (!parser.positionalArguments().isEmpty())
         w.open(QUrl::fromLocalFile(parser.positionalArguments().constFirst()));
+
+    QObject::connect(a.instance(), &QCoreApplication::aboutToQuit, &w, &MainWindow::terminate);
 
     return a.exec();
 }

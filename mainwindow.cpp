@@ -18,8 +18,11 @@
 #include <QShortcut>
 #include <QStandardPaths>
 #include <QtMath>
+#include <QProcess>
 
 const qreal zoomMultiplier = qSqrt(2.0);
+QProcess *myProcess = new QProcess();
+
 
 Q_LOGGING_CATEGORY(lcExample, "qt.examples.pdfviewer")
 
@@ -96,6 +99,13 @@ void MainWindow::open(const QUrl &docLocation)
         QMessageBox::critical(this, tr("Failed to open"), message);
     }
     qCDebug(lcExample) << docLocation;
+    //C:/Users/Cosimo/Desktop/GitHub/untitled/
+    //E:/GITHUB_REPOS/untitled/
+    QString program = "C:/Users/Cosimo/Desktop/GitHub/untitled/typst.exe";
+    QStringList arguments;
+    arguments << "watch" << "C:/Users/Cosimo/Desktop/GitHub/untitled/test.typ";
+
+    myProcess->start(program, arguments);
 }
 
 void MainWindow::bookmarkSelected(const QModelIndex &index)
@@ -150,6 +160,10 @@ void MainWindow::on_actionOpen_triggered()
 void MainWindow::on_actionQuit_triggered()
 {
     QApplication::quit();
+}
+
+void MainWindow::terminate(){
+    myProcess->kill();
 }
 
 void MainWindow::on_actionAbout_triggered()
@@ -227,7 +241,6 @@ void MainWindow::on_actionFindPrevious_triggered()
 
 void MainWindow::on_textEdit_2_textChanged()
 {
-    //QString plainText = ui->textEdit_2->toPlainText();
+    QString plainText = ui->textEdit_2->toPlainText();
     //qDebug(plainText.toLatin1());
 }
-
