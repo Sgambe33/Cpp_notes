@@ -1,0 +1,11 @@
+.vscode/
+.idea/
+
+build/
+out/
+
+*.user
+*.exe
+*.out
+
+
